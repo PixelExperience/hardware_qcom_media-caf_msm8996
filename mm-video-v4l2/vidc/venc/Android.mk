@@ -107,13 +107,13 @@ endif
 
 # Common Includes
 libmm-venc-inc      := $(LOCAL_PATH)/inc
-libmm-venc-inc      += $(TOP)/hardware/qcom/media/mm-video-v4l2/vidc/common/inc
-libmm-venc-inc      += hardware/qcom/media/mm-core/inc
-libmm-venc-inc      += hardware/qcom/media/libstagefrighthw
+libmm-venc-inc      += $(call project-path-for,qcom-media)/mm-video-v4l2/vidc/common/inc
+libmm-venc-inc      += $(call project-path-for,qcom-media)/mm-core/inc
+libmm-venc-inc      += $(call project-path-for,qcom-media)/libstagefrighthw
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/adreno
-libmm-venc-inc      += hardware/qcom/media/libc2dcolorconvert
-libmm-venc-inc      += hardware/qcom/media/hypv-intercept
+libmm-venc-inc      += $(call project-path-for,qcom-media)/libc2dcolorconvert
+libmm-venc-inc      += $(call project-path-for,qcom-media)/hypv-intercept
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/libvqzip
 libmm-venc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 ifeq ($(call is-board-platform-in-list, $(TARGETS_THAT_SUPPORT_PQ)),true)
@@ -173,6 +173,7 @@ ifeq ($(call is-board-platform-in-list, $(TARGETS_THAT_NEED_SW_VENC_MPEG4)),true
 # 			Make the Shared library (libOmxSwVencMpeg4)
 # ---------------------------------------------------------------------------------
 
+ifneq ($(QCPATH),)
 include $(CLEAR_VARS)
 
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/mm-video/swvenc
@@ -204,6 +205,7 @@ LOCAL_SRC_FILES   := src/omx_video_base.cpp
 LOCAL_SRC_FILES   += src/omx_swvenc_mpeg4.cpp
 
 include $(BUILD_SHARED_LIBRARY)
+endif # QCPATH
 endif
 
 
